@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Odin Library</title>
+</head>
+<body>
+    <button id="new-book">New Book</button>
+
+    <div id="card-holder">
+
+        <div class="card">
+            <h2 class="title">Test Book</h2>
+            <p class="author">Author</p>
+            <p class="pages">213 pages</p>
+            <div class="haveRead-container">
+                <p>Have Read</p> <div class="haveRead"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-book">
+        <label for="book-name">Name</label>
+        <input type="text" id="book-name" name="book-name">
+        <label for="book-author">Author</label>
+        <input type="text" id="book-author" name="book-author">
+        <label for="book-pages">Pages</label>
+        <input type="number" min="0" id="book-pages" name="book-pages">
+        <label for="book-read">Have you read it?</label>
+        <input type="checkbox" name="book-read" id="book-read">
+        <button id="add">Add</button>
+        <button id="cancel">Cancel</button>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>

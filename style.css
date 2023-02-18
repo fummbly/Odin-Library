@@ -1,0 +1,52 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#add-book {
+    display: none;
+    flex-direction: column;
+    width: 10vw;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: .5rem;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+}
+
+#add-book > * {
+    margin: .25rem 0;
+}
+
+#card-holder {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.card {
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    box-shadow: 5px 5px 10px rgba(0,0,0, 0.4);
+}
+
+.haveRead-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.haveRead {
+    background-color: red;
+    width: 3rem;
+    aspect-ratio: 2/1;
+    border-radius: .25rem;
+    margin-left: 1rem;
+}
+
+.readIt {
+    background-color: green;
+}
