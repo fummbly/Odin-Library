@@ -1,67 +1,214 @@
-let library = []
 
-var addingBook = false;
-
+const cardHolder = document.getElementById('card-holder')
 const newBookBtn = document.getElementById('new-book')
 const addBookDiv = document.getElementById('add-book')
-const bookName = document.getElementById('book-name')
-const bookAuthor = document.getElementById('book-author')
-const bookPages = document.getElementById('book-pages')
-const bookRead = document.getElementById('book-read')
+const newBookName = document.getElementById('book-name')
+const newBookAuthor = document.getElementById('book-author')
+const newBookpages = document.getElementById('book-pages')
+const newBookRead = document.getElementById('book-read')
 const addBtn = document.getElementById('add')
-const cancelBtn = document.getElementById('cancel')
-const cardHolder = document.getElementById('card-holder')
-newBookBtn.addEventListener('click', displayBookDiv)
+const cancel = document.getElementById('cancel')
+const sort = document.getElementById('sort')
 
+let optionState = sort.value
 
-function Book(name, author, pages, haveRead) {
-    this.name = name;
-    this.author = author;
-    this.pages = pages;
-    this.haveRead = haveRead;
+sort.addEventListener('change', (e) => {
+    optionState = sort.value
+    library.sort(optionState)
+    loadLibrary()
+})
+
+cancel.addEventListener('click', () => {
+    addBookDiv.style.display = 'none'
+})
+
+addBtn.addEventListener('click', addBookToLibrary)
+
+newBookBtn.addEventListener('click', () => {
+    addBookDiv.style.display = 'flex'
+})
+
+class Book {
+    constructor(title = 'unknown', auhtor="unknown", pages=0, isRead=false){
+        this.title = title;
+        this.author = auhtor;
+        this.pages = pages;
+        this.isRead = isRead
+    }
 }
 
-function displayBookDiv() {
-    addBookDiv.style.display = 'flex'
-    addBtn.addEventListener('click', addBookToLibrary)
-    cancelBtn.addEventListener('click', () => {
-        addBookDiv.style.display = 'none'
+class Library {
+    constructor() {
+        this.books = []
+    }
+
+    addBook(newBook) {
+        if(!this.isInLibrary(newBook)) {
+            this.books.push(newBook)
+        }
+    }
+
+    removeBook(title) {
+        this.books = this.books.filter((book) => book.title !== title)
+    }
+
+    getBook(title) {
+        return this.books.find((book) => book.title === title)
+    }
+
+    isInLibrary(newBook) {
+        return this.books.some((book) => book.title === newBook.title)
+    }
+
+    bookCards() {
+        for(let book of this.books) {
+            cardHolder.appendChild(makeBookCard(book));
+        }
+    }
+
+    sort(option) {
+        switch(option) {
+            case "1": 
+                this.books.sort((a, b) => {
+                    const aTitle = a.title.toUpperCase();
+                    const bTitle = b.title.toUpperCase();
+                    if(aTitle < bTitle) {
+                        return -1;
+                    }
+                    if(aTitle > bTitle) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                break;
+            case "2": 
+                this.books.sort((a, b) => {
+                    const aTitle = a.title.toUpperCase();
+                    const bTitle = b.title.toUpperCase();
+                    if(aTitle < bTitle) {
+                        return 1;
+                    }
+                    if(aTitle > bTitle) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                break
+            case "3":
+                this.books.sort((a, b) => {
+                    const aPages = a.pages;
+                    const bPages = b.pages;
+                    if(aPages < bPages) {
+                        return -1;
+                    }
+                    if(aPages > bPages) {
+                        return 1;
+                    }
+                    return 0;
+                })
+                break
+            case "4":
+                this.books.sort((a, b) => {
+                    const aPages = a.pages;
+                    const bPages = b.pages;
+                    if(aPages < bPages) {
+                        return 1;
+                    }
+                    if(aPages > bPages) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                break
+            case "5":
+                this.books.sort((a, b)=> {
+                    const aRead = a.isRead;
+                    const bRead = b.isRead;
+                    if(aRead & !bRead) {
+                        return -1;
+                    }
+                    if(bRead & !aRead) {
+                        return 1;
+                    }
+                    return 0;
+                })
+        }
+    }
+}
+
+const library = new Library()
+
+
+
+function toggleRead(Book) {
+    Book.read = !Book.read
+}
+
+
+
+function makeBookCard(Book) {
+    const newCard = document.createElement('div')
+    newCard.classList.add('card')
+
+    const title = document.createElement('h2')
+    title.classList.add('title')
+    title.textContent = Book.title;
+    newCard.appendChild(title)
+
+    const author = document.createElement('p')
+    author.classList.add('author')
+    author.textContent = Book.author
+    newCard.appendChild(author)
+
+    const pages = document.createElement('p')
+    pages.classList.add('pages')
+    pages.textContent = `${Book.pages} pages`
+    newCard.appendChild(pages)
+
+    const readBtn = document.createElement('button')
+    readBtn.classList.add('readButton')
+    if(Book.isRead) {
+        readBtn.innerHTML = 'Read'
+        readBtn.classList.add('read')
+    }else {
+        readBtn.innerHTML = 'Not Read'
+    }
+    readBtn.addEventListener('click', (e) => {
+        Book.isRead ? e.target.innerHTML = 'Not Read' : e.target.innerHTML = 'Read'
+        e.target.classList.toggle('read')
+        toggleRead(Book)
     })
+    newCard.appendChild(readBtn)
+
+    const delBtn = document.createElement('button')
+    delBtn.classList.add('del-btn')
+    delBtn.innerHTML = 'Delete'
+    delBtn.addEventListener('click', () => {
+        library.removeBook(Book.title)
+        loadLibrary()
+    })
+    newCard.appendChild(delBtn)
+
+    return newCard
+}
+
+function clearCardHolder() {
+    cardHolder.innerHTML = ''
 }
 
 function addBookToLibrary() {
-    const newBook = new Book(bookName.value, bookAuthor.value, bookPages.value, bookRead.value)
-
-    library.push(newBook);
-    addBookDiv.style.display = "none";
+    library.addBook(new Book(newBookName.value, newBookAuthor.value, newBookpages.value, newBookRead.checked))
+    addBookDiv.style.display = 'none'
+    library.sort(optionState)
     loadLibrary()
-    console.log(library)
 }
 
 
 function loadLibrary() {
-    if(library.length === 0) return;
-
-    for (const book in library) {
-        let newCard = document.createElement('div')
-        newCard.classList.add('card')
-        console.log(book)
-        let title = document.createElement('h2')
-        title.classList.add('title')
-        title.textContent = book.name
-        newCard.appendChild(title)
-
-        let author = document.createElement('p')
-        author.classList.add('author')
-        author.textContent = book.author
-        newCard.appendChild(author)
-
-        let pages = document.createElement('p')
-        pages.classList.add('pages')
-        pages.textContent = `${book.pages} pages`
-        newCard.appendChild(pages)
-
-        cardHolder.appendChild(newCard)
-
-    }
+    clearCardHolder()
+    library.bookCards()
 }
+
+
+
+window.addEventListener('load', loadLibrary())

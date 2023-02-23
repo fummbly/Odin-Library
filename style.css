@@ -6,6 +6,7 @@
 #add-book {
     display: none;
     flex-direction: column;
+    min-width: 10rem;
     width: 10vw;
     justify-content: center;
     padding: 2rem;
@@ -20,11 +21,11 @@
 #card-holder {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem 2rem;
 }
 
 .card {
-    justify-self: center;
     display: flex;
     flex-direction: column;
     padding: 1rem 3rem;
@@ -38,15 +39,23 @@
     justify-content: space-between;
 }
 
-
-.haveRead {
-    background-color: red;
-    width: 3rem;
-    aspect-ratio: 2/1;
+.readButton {
+    padding: .5rem .25rem;
     border-radius: .25rem;
-    margin-left: 1rem;
+    background-color: red;
+    border: none;
+
 }
 
-.readIt {
+
+.read {
     background-color: green;
+    color: white;
+}
+
+.del-btn {
+    padding: .5rem .25rem;
+    border-radius: .25rem;
+    border: none;
+    background-color: coral;
 }
