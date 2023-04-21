@@ -36,18 +36,20 @@
         
         </div>
     </div>
-    <div id="add-book">
+    <form id="add-book">
         <label for="book-name">Name</label>
-        <input type="text" id="book-name" name="book-name">
+        <input type="text" id="book-name" name="book-name" required>
+        <p id="nameError" class="error"></p>
         <label for="book-author">Author</label>
-        <input type="text" id="book-author" name="book-author">
+        <input type="text" id="book-author" name="book-author" required>
+        <p id="authorError" class="error"></p>
         <label for="book-pages">Pages</label>
-        <input type="number" min="0" id="book-pages" name="book-pages">
+        <input type="number" min="1" id="book-pages" name="book-pages" required>
         <label for="book-read">Have you read it?</label>
         <input type="checkbox" name="book-read" id="book-read">
-        <button class="btn" id="add">Add</button>
+        <button type="submit" class="btn" id="add">Add</button>
         <button class="btn" id="cancel">Cancel</button>
-    </div>
+    </form>
 
 </body>
 <script src="script.js"></script>

@@ -1,9 +1,29 @@
 
 const cardHolder = document.getElementById('card-holder')
 const newBookBtn = document.getElementById('new-book')
-const addBookDiv = document.getElementById('add-book')
+const addBookForm = document.getElementById('add-book')
 const newBookName = document.getElementById('book-name')
+const nameError = document.getElementById('nameError')
+newBookName.addEventListener('input', () => {
+    if(newBookName.validity.valueMissing) {
+        nameError.classList.add('active')
+        nameError.textContent = 'Book name is required'
+    } else if(newBookName.validity.valid) {
+        nameError.classList.remove('active')
+        nameError.textContent = ''
+    }
+})
 const newBookAuthor = document.getElementById('book-author')
+const authorError = document.getElementById('authorError')
+newBookAuthor.addEventListener('input', () => {
+    if(newBookAuthor.validity.valueMissing) {
+        authorError.classList.add('active')
+        authorError.textContent = 'Author name is required'
+    } else if(newBookAuthor.validity.valid) {
+        authorError.classList.remove('active')
+        authorError.textContent = ''
+    }
+})
 const newBookpages = document.getElementById('book-pages')
 const newBookRead = document.getElementById('book-read')
 const addBtn = document.getElementById('add')
@@ -20,14 +40,32 @@ sort.addEventListener('change', (e) => {
 })
 
 cancel.addEventListener('click', () => {
-    addBookDiv.style.display = 'none'
+    clearForm()
+    addBookForm.style.display = 'none'
     content.classList.remove('blur')
 })
 
-addBtn.addEventListener('click', addBookToLibrary)
+addBookForm.addEventListener('submit', (event) => {
+
+    if(!newBookName.validity.valid) {
+        console.log("Name Required")
+    }
+
+
+    event.preventDefault()
+    addBookToLibrary()
+    clearForm()
+})
+
+function clearForm() {
+    newBookName.value = ""
+    newBookAuthor.value = ""
+    newBookpages.value = ""
+    newBookRead.checked = false
+}
 
 newBookBtn.addEventListener('click', () => {
-    addBookDiv.style.display = 'flex'
+    addBookForm.style.display = 'flex'
     content.classList.add('blur')
 })
 
@@ -206,7 +244,7 @@ function clearCardHolder() {
 
 function addBookToLibrary() {
     library.addBook(new Book(newBookName.value, newBookAuthor.value, newBookpages.value, newBookRead.checked))
-    addBookDiv.style.display = 'none'
+    addBookForm.style.display = 'none'
     library.sort(optionState)
     content.classList.remove('blur')
     loadLibrary()

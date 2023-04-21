@@ -73,7 +73,6 @@ body {
     position: absolute;
     top: 10rem;
     left: 50%;
-    height: 20rem;
     width: 20rem;
     margin: 0 auto;
     justify-content: space-evenly;
@@ -85,6 +84,7 @@ body {
     transform: translate(-50%, 0);
     font-size: 1.5rem;
 }
+
 
 #add {
     background-color: #2e9458;
@@ -98,6 +98,17 @@ body {
 
 #add-book > * {
     margin: .25rem 0;
+}
+
+.error {
+    font-size: 1.25rem;
+    background-color: lightcoral;
+    padding: 0;
+    border-radius: .25rem;
+}
+
+.error.active {
+    padding: .5rem .5rem
 }
 
 #card-holder {
@@ -148,6 +159,7 @@ body {
     border: none;
     font-size: 1.5rem;
     font-weight: bold;
+    transition: all .5s;
 }
 
 .notRead {
