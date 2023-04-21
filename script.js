@@ -9,6 +9,7 @@ const newBookRead = document.getElementById('book-read')
 const addBtn = document.getElementById('add')
 const cancel = document.getElementById('cancel')
 const sort = document.getElementById('sort')
+const content = document.getElementById('content')
 
 let optionState = sort.value
 
@@ -20,12 +21,14 @@ sort.addEventListener('change', (e) => {
 
 cancel.addEventListener('click', () => {
     addBookDiv.style.display = 'none'
+    content.classList.remove('blur')
 })
 
 addBtn.addEventListener('click', addBookToLibrary)
 
 newBookBtn.addEventListener('click', () => {
     addBookDiv.style.display = 'flex'
+    content.classList.add('blur')
 })
 
 class Book {
@@ -34,6 +37,10 @@ class Book {
         this.author = auhtor;
         this.pages = pages;
         this.isRead = isRead
+    }
+
+    toggleRead() {
+        this.isRead = !this.isRead
     }
 }
 
@@ -140,9 +147,6 @@ const library = new Library()
 
 
 
-function toggleRead(Book) {
-    Book.read = !Book.read
-}
 
 
 
@@ -154,11 +158,13 @@ function makeBookCard(Book) {
     title.classList.add('title')
     title.textContent = Book.title;
     newCard.appendChild(title)
+    newCard.appendChild(document.createElement('hr'))
 
     const author = document.createElement('p')
     author.classList.add('author')
     author.textContent = Book.author
     newCard.appendChild(author)
+    newCard.appendChild(document.createElement('hr'))
 
     const pages = document.createElement('p')
     pages.classList.add('pages')
@@ -166,7 +172,8 @@ function makeBookCard(Book) {
     newCard.appendChild(pages)
 
     const readBtn = document.createElement('button')
-    readBtn.classList.add('readButton')
+    readBtn.classList.add('notRead')
+    readBtn.classList.add('btn')
     if(Book.isRead) {
         readBtn.innerHTML = 'Read'
         readBtn.classList.add('read')
@@ -176,12 +183,13 @@ function makeBookCard(Book) {
     readBtn.addEventListener('click', (e) => {
         Book.isRead ? e.target.innerHTML = 'Not Read' : e.target.innerHTML = 'Read'
         e.target.classList.toggle('read')
-        toggleRead(Book)
+        Book.toggleRead()
     })
     newCard.appendChild(readBtn)
 
     const delBtn = document.createElement('button')
-    delBtn.classList.add('del-btn')
+    delBtn.classList.add('del')
+    delBtn.classList.add("btn")
     delBtn.innerHTML = 'Delete'
     delBtn.addEventListener('click', () => {
         library.removeBook(Book.title)
@@ -200,6 +208,7 @@ function addBookToLibrary() {
     library.addBook(new Book(newBookName.value, newBookAuthor.value, newBookpages.value, newBookRead.checked))
     addBookDiv.style.display = 'none'
     library.sort(optionState)
+    content.classList.remove('blur')
     loadLibrary()
 }
 

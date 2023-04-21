@@ -1,17 +1,99 @@
+:root {
+    --dark-grey: #303031;
+    --red: #912921;
+    --off-white: #e2e2e2;
+    --green: #2e9458;
+}
+
 * {
     padding: 0;
     margin: 0;
+    font-family: monospace;
 }
+
+body {
+    background-color: var(--dark-grey);
+
+}
+
+.container {
+    max-width: 1200px;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.header {
+    background-color: var(--off-white);
+    color: var(--dark-grey);
+}
+
+.head-logo {
+    display: inline;
+    font-size: 3rem;
+}
+
+.newBook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#new-book {
+    background-color: var(--off-white);
+    color: var(--dark-grey);
+}
+
+
+ .books {
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem;
+}
+
+#sort {
+    display: block;
+    font-size: 1.5rem;
+    background-color: var(--off-white);
+    color: var(--dark-grey);
+    border: none;
+    border-radius: .25rem;
+}
+
 
 #add-book {
     display: none;
     flex-direction: column;
-    min-width: 10rem;
-    width: 10vw;
-    justify-content: center;
+    position: absolute;
+    top: 10rem;
+    left: 50%;
+    height: 20rem;
+    width: 20rem;
+    margin: 0 auto;
+    justify-content: space-evenly;
     padding: 2rem;
     border-radius: .5rem;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    background-color: var(--off-white);
+    color: var(--dark-grey);
+    transform: translate(-50%, 0);
+    font-size: 1.5rem;
+}
+
+#add {
+    background-color: #2e9458;
+    color: white;
+}
+
+#cancel {
+    background-color: var(--red);
+    color: white;
 }
 
 #add-book > * {
@@ -21,17 +103,38 @@
 #card-holder {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 1rem 2rem;
+    grid-template-columns: repeat(1, 1fr);
+    padding: 1rem 0;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    padding: 1rem 3rem;
+    background-color: var(--off-white);
+    color: var(--dark-grey);
+    justify-content: space-evenly;
+    padding: .5rem 1rem;
     border-radius: .5rem;
     box-shadow: 5px 5px 10px rgba(0,0,0, 0.4);
+    min-height: 15rem;
 }
+
+.card hr {
+    background-color: var(--dark-grey);
+    height: 3px;
+    border: none;
+}
+
+.title {
+    font-size: 2rem;
+}
+
+.author, .pages {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+
 
 .haveRead-container {
     display: flex;
@@ -39,23 +142,49 @@
     justify-content: space-between;
 }
 
-.readButton {
-    padding: .5rem .25rem;
+.btn {
+    padding: .5rem 1rem;
     border-radius: .25rem;
-    background-color: red;
     border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
 
+.notRead {
+    background-color: var(--off-white);
+    border: 3px solid var(--dark-grey)
 }
 
 
 .read {
-    background-color: green;
+    background-color: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+
+.del {
+    background-color: var(--red);
     color: white;
 }
 
-.del-btn {
-    padding: .5rem .25rem;
-    border-radius: .25rem;
-    border: none;
-    background-color: coral;
+.blur {
+    filter: blur(5px);
+}
+
+
+@media (min-width: 700px) {
+    #card-holder {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #sort {
+        align-self: flex-end;
+    }
+    
+}
+
+@media (min-width: 1000px) {
+    #card-holder {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

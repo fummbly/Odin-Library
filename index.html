@@ -8,20 +8,34 @@
     <title>Odin Library</title>
 </head>
 <body>
-    <button id="new-book">New Book</button>
+    <header class="header">
 
-    <select name="sort" id="sort">
-        <option selected value=1>Title: A-Z</option>
-        <option value=2>Title: Z-A</option>
-        <option value=3>Pages: Increasing</option>
-        <option value=4>Pages: Decreasing</option>
-        <option value=5>Read It</option>
-    </select>
+        <div class="container">
+            <h1 class="head-logo">Library</h1>
+        </div>
+    </header>
+    <div id="content">
 
-    <div id="card-holder">
-
+        <div class="container newBook">
+    
+            <button id="new-book" class="btn">New Book</button>
+        </div>
+        <div class="container books">
+    
+            <select name="sort" id="sort">
+                <option selected value=1>Title: A-Z</option>
+                <option value=2>Title: Z-A</option>
+                <option value=3>Pages: Increasing</option>
+                <option value=4>Pages: Decreasing</option>
+                <option value=5>Read It</option>
+            </select>
+        
+            <div id="card-holder">
+        
+            </div>
+        
+        </div>
     </div>
-
     <div id="add-book">
         <label for="book-name">Name</label>
         <input type="text" id="book-name" name="book-name">
@@ -31,9 +45,10 @@
         <input type="number" min="0" id="book-pages" name="book-pages">
         <label for="book-read">Have you read it?</label>
         <input type="checkbox" name="book-read" id="book-read">
-        <button id="add">Add</button>
-        <button id="cancel">Cancel</button>
+        <button class="btn" id="add">Add</button>
+        <button class="btn" id="cancel">Cancel</button>
     </div>
+
 </body>
 <script src="script.js"></script>
 </html>
